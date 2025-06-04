@@ -63,6 +63,8 @@ public class TheoCPT{
 				quiz = new TextInputFile("general.txt");
 			}else if(intQuizFile == 2){
 				quiz = new TextInputFile("vocabulary.txt");
+				
+				System.out.println("g");
 			}
 			
 			}
