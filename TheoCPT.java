@@ -12,6 +12,10 @@ public class TheoCPT{
 		int intQuizFile;
 		int intQuestionCount;
 		intQuestionCount = 0;
+		int intScore;
+		intScore = 0;
+		int intPercentage;
+		
 
 		
 		while(true){
@@ -38,7 +42,7 @@ public class TheoCPT{
 					intQuizCount++;
 				}
 			int intCount;
-			intCount = 0;
+	
 			con.clear();
 			con.println("Available Quizzes: ");
 			
@@ -49,7 +53,7 @@ public class TheoCPT{
 			while(true){
 				con.print("Type the quiz number you want to play: ");
 				intQuizFile = con.readInt();
-				if(intQuizFile > 0 && intQuizFile < 3){
+				if(0 < intQuizFile && intQuizFile < 3){
 					break;
 				}else{
 					con.println("Invalid input. Try again");
@@ -63,10 +67,63 @@ public class TheoCPT{
 				quiz = new TextInputFile("general.txt");
 			}else if(intQuizFile == 2){
 				quiz = new TextInputFile("vocabulary.txt");
-				
-				System.out.println("g");
+			}else{
+				quiz = new TextInputFile("general.txt");
 			}
 			
+			while(quiz.eof() != true){
+				for(intCount = 0; intCount < 6; intCount++){
+					strQuizData[intQuestionCount][intCount] = quiz.readLine();
+				}
+				strQuizData[intQuestionCount][6] = String.valueOf((int)(Math.random()*100+1));
+				intQuestionCount++;
+			}
+			
+			// Bubble sort
+			int intCount1;
+			intCount1 = 0;
+			for(intCount = 0; intCount < intQuestionCount - 1; intCount++){
+				for(intCount1 = 0; intCount1 < intQuestionCount - intCount - 1; intCount1++){
+					if(Integer.parseInt(strQuizData[intCount1][6])>Integer.parseInt(strQuizData[intCount1+1][6])){
+						String[] temp = strQuizData[intCount1];
+						strQuizData[intCount1] = strQuizData[intCount+1];
+						strQuizData[intCount1+1] = temp;
+					}
+				}
+			}
+			
+			// Gameplay
+			
+			    for (intCount = 0; intCount < intQuestionCount; intCount++) {
+					con.clear();
+					con.println("Name: " + strName + " | Quiz: " + intQuizFile + " | Score: " + intScore);
+					con.println();
+					con.println((intCount + 1) + ". " + strQuizData[intCount][0]);
+					con.println("A) " + strQuizData[intCount][1]);
+					con.println("B) " + strQuizData[intCount][2]);
+					con.println("C) " + strQuizData[intCount][3]);
+					con.println("D) " + strQuizData[intCount][4]);
+					con.print("Your answer (A-D): ");
+					String ans = con.readLine().toUpperCase();
+					if (ans.length() > 0 && ans.charAt(0) == strQuizData[intCount][5].charAt(0)) {
+						con.println("Correct!");
+					intScore++;
+					} else {
+						con.println("Incorrect! The correct answer was " + strQuizData[intCount][5]);
+					}
+					con.println("Press Enter to continue...");
+					con.readLine();
+				}
+
+                intPercentage = (intScore * 100) / intQuestionCount;
+
+                con.clear();
+                con.println("You scored: " + intPercentage + "%");
+                con.println("Press Enter to return to menu...");
+                con.readLine();
+
+			
+			}
 			}
 			
 		}
@@ -74,5 +131,5 @@ public class TheoCPT{
 		
 		}
 		
-	}
+	
 
