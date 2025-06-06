@@ -14,7 +14,7 @@ public class TheoCPT{
 		intQuestionCount = 0;
 		int intScore;
 		intScore = 0;
-		int intPercentage;
+		double dblPercentage;
 		
 
 		
@@ -115,14 +115,21 @@ public class TheoCPT{
 					con.readLine();
 				}
 
-                intPercentage = (intScore * 100) / intQuestionCount;
+                dblPercentage = (intScore * 100) / intQuestionCount;
 
                 con.clear();
-                con.println("You scored: " + intPercentage + "%");
+                con.println("You scored: " + dblPercentage + "%");
                 con.println("Press Enter to return to menu...");
                 con.readLine();
 
-			
+				// Save to leaderboard
+				TextOutputFile HighScores = new TextOutputFile("leaderboard.txt", true);
+				HighScores.println(strName);
+				HighScores.println(intQuizFile);
+				HighScores.println(dblPercentage);
+				HighScores.close();
+				
+				
 			}
 			}
 			
