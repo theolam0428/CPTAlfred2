@@ -1,5 +1,5 @@
 import arc.*;
-
+import java.awt.Color;
 public class TheoCPT{
 	public static void main(String[] args){
 		Console con = new Console("Multiple Choice Game", 1920, 1080);
@@ -15,6 +15,14 @@ public class TheoCPT{
 		int intScore;
 		intScore = 0;
 		double dblPercentage;
+		int intCount;
+		int intCount1;
+		
+		Color backgroundColor = Color.BLACK;
+		Color textColor = Color.WHITE;
+		
+		con.setBackgroundColor(backgroundColor);
+		con.setTextColor(textColor);
 		
 
 		
@@ -41,7 +49,7 @@ public class TheoCPT{
 					quizList[intQuizCount] = master.readLine();
 					intQuizCount++;
 				}
-			int intCount;
+			
 	
 			con.clear();
 			con.println("Available Quizzes: ");
@@ -80,7 +88,6 @@ public class TheoCPT{
 			}
 			
 			// Bubble sort
-			int intCount1;
 			intCount1 = 0;
 			for(intCount = 0; intCount < intQuestionCount - 1; intCount++){
 				for(intCount1 = 0; intCount1 < intQuestionCount - intCount - 1; intCount1++){
@@ -129,14 +136,136 @@ public class TheoCPT{
 				HighScores.println(dblPercentage);
 				HighScores.close();
 				
-				
+
+            } else if (intChoice == 2) {
+                con.clear();
+                con.println("=== LEADERBOARD ===");
+
+                String[][] leaderboard = new String[100][3];
+                int leaderCount = 0;
+                TextInputFile in = new TextInputFile("leaderboard.txt");
+                while(in.eof() != true){
+					leaderboard[leaderCount][0] = in.readLine();
+					leaderboard[leaderCount][1] = in.readLine();
+					leaderboard[leaderCount][2] = in.readLine();
+					leaderCount++;         
+                }
+
+                // Sort by score
+                for (intCount = 0; intCount < leaderCount - 1; intCount++) {
+                    for (intCount1 = 0; intCount1 < leaderCount - intCount - 1; intCount1++) {
+                        if (Integer.parseInt(leaderboard[intCount1][2]) < Integer.parseInt(leaderboard[intCount1 + 1][2])) {
+                            String[] temp = leaderboard[intCount1];
+                            leaderboard[intCount1] = leaderboard[intCount1 + 1];
+                            leaderboard[intCount1 + 1] = temp;
+                        }
+                    }
+                }
+
+                for (intCount = 0; intCount < leaderCount; intCount++) {
+                    con.println(leaderboard[intCount][0] + " | " + leaderboard[intCount][1] + " | " + leaderboard[intCount][2] + "%");
+                }
+
+                con.println("Press Enter to return to menu...");
+                con.readLine();
+
+            } else if (intChoice == 3) {
+                con.clear();
+                con.print("Enter name of new quiz file (e.g. science.txt): ");
+                String newQuiz = con.readLine();
+
+                TextOutputFile newOut = new TextOutputFile("newQuiz");
+
+                while (true) {
+                    con.println("Type 'stop' as the question to end quiz creation.");
+                    con.print("Enter question: ");
+                    String q = con.readLine();
+                    if (q.equalsIgnoreCase("stop")) break;
+
+                    con.print("A) "); String a = con.readLine();
+                    con.print("B) "); String b = con.readLine();
+                    con.print("C) "); String c = con.readLine();
+                    con.print("D) "); String d = con.readLine();
+                    con.print("Correct answer (A/B/C/D): ");
+                    String correct = con.readLine().toUpperCase();
+
+                    newOut.println(q);
+                    newOut.println(a);
+                    newOut.println(b);
+                    newOut.println(c);
+                    newOut.println(d);
+                    newOut.println(correct);
+                }
+
+                newOut.close();
+
+                // Append to quizzes.txt
+                TextOutputFile updateMaster = new TextOutputFile("quizzes.txt", true);
+                updateMaster.println(newQuiz);
+                updateMaster.close();
+
+                con.println("Quiz created and saved!");
+                con.println("Press Enter to return to menu...");
+                con.readLine();
+
+            }else if (intChoice == 4) {
+				con.clear();
+				con.println("=== SETTINGS ===");
+				con.println("Choose a background color:");
+				con.println("Options: red, orange, yellow, green, blue, indigo, violet, black, white");
+				con.print("Background color: ");
+				String bgColorName = con.readLine().toLowerCase();
+
+				con.println();
+				con.println("Choose a text color:");
+				con.println("Options: red, orange, yellow, green, blue, indigo, violet, black, white");
+				con.print("Text color: ");
+				String textColorName = con.readLine().toLowerCase();
+
+				// Convert string to Color
+				backgroundColor = getColorFromName(bgColorName);
+				textColor = getColorFromName(textColorName);
+
+				// Apply the colors
+				con.setBackgroundColor(backgroundColor);
+				con.setTextColor(textColor);
+				con.clear();
+				con.println("Colors updated. Press Enter to return to the menu.");
+				con.readLine();
+
+							}else if (intChoice == 5) {
+								con.println("Thanks for playing!");
+								break;
+							} else {
+								con.println("Invalid choice. Press Enter to try again...");
+								con.readLine();
+							}
+						}
+					}
+					public static Color getColorFromName(String name) {
+					name = name.toLowerCase();
+					switch (name) {
+						case "red": return Color.RED;
+						case "orange": return Color.ORANGE;
+						case "yellow": return Color.YELLOW;
+						case "green": return Color.GREEN;
+						case "blue": return Color.BLUE;
+						case "indigo": return new Color(75, 0, 130);  // Indigo RGB
+						case "violet": return new Color(138, 43, 226); // Violet RGB
+						case "black": return Color.BLACK;
+						case "white": return Color.WHITE;
+						default: return Color.BLACK; // Fallback color
+					}
+				}
 			}
-			}
+
 			
-		}
+			
+			
 		
 		
-		}
+		
+		
 		
 	
 
