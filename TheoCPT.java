@@ -1,7 +1,7 @@
 // Theodore Lam
 // Multiple Choice Game
 // June 12, 2025
-// 3.4
+// Version 3.4
 
 import arc.*;
 import java.awt.Color;
@@ -9,7 +9,7 @@ import java.awt.image.BufferedImage;
 
 public class TheoCPT {
     public static void main(String[] args) {
-        Console con = new Console("Multiple Choice Game", 1280, 720);
+        Console con = new Console("QUIZ QUEST (Multiple Choice Game)", 1280, 720);
 
         String[] quizList = new String[100];
         int intQuizCount = 0;
@@ -23,8 +23,8 @@ public class TheoCPT {
         int intCount1;
 
         // Setting default background and text colors
-        Color backgroundColor = Color.BLACK;
-        Color textColor = Color.WHITE;
+        Color backgroundColor = Color.WHITE;
+        Color textColor = Color.BLACK;
 
         con.setBackgroundColor(backgroundColor);
         con.setTextColor(textColor);
@@ -39,7 +39,7 @@ public class TheoCPT {
             con.println("1) Play Game");
             con.println("2) View Leaderboard");
             con.println("3) Add Quiz");
-            con.println("4) Settings");
+            con.println("4) Change Screen Colors");
             con.println("5) Quit Game");
             con.println("6) Help");
             con.println("Enter a choice: ");
@@ -223,7 +223,7 @@ public class TheoCPT {
 
                 newOut.close();
 
-                TextOutputFile updateMaster = new TextOutputFile("quizzes.txt", true);
+                TextOutputFile updateMaster = new TextOutputFile("master.txt", true);
                 updateMaster.println(newQuiz);
                 updateMaster.close();
 
