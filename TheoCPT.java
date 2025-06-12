@@ -23,8 +23,8 @@ public class TheoCPT {
         int intCount1;
 
         // Setting default background and text colors
-        Color backgroundColor = Color.WHITE;
-        Color textColor = Color.BLACK;
+        Color backgroundColor = Color.BLACK;
+        Color textColor = Color.YELLOW;
 
         con.setBackgroundColor(backgroundColor);
         con.setTextColor(textColor);
