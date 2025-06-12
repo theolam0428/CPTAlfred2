@@ -1,7 +1,7 @@
 // Theodore Lam
 // Multiple Choice Game
 // June 12, 2025
-// Version 3.4
+// Version 3.4.17
 
 import arc.*;
 import java.awt.Color;
@@ -124,8 +124,8 @@ public class TheoCPT {
                     con.println("C) " + strQuizData[intCount][3]);
                     con.println("D) " + strQuizData[intCount][4]);
                     con.print("Your answer (A-D): ");
-                    String ans = con.readLine().toUpperCase();
-                    if (ans.length() > 0 && ans.charAt(0) == strQuizData[intCount][5].charAt(0)) {
+                    String strAns = con.readLine().toUpperCase();
+                    if (strAns.length() > 0 && strAns.charAt(0) == strQuizData[intCount][5].charAt(0)) {
                         con.println("Correct!");
                         intScore++;
                     } else {
@@ -162,11 +162,11 @@ public class TheoCPT {
 
                 String[][] leaderboard = new String[100][3];
                 int leaderCount = 0;
-                TextInputFile in = new TextInputFile("leaderboard.txt");
-                while (!in.eof()) {
-                    leaderboard[leaderCount][0] = in.readLine(); // name
-                    leaderboard[leaderCount][1] = in.readLine(); // quiz number
-                    leaderboard[leaderCount][2] = in.readLine(); // score
+                TextInputFile leaderboardRead = new TextInputFile("leaderboard.txt");
+                while (!leaderboardRead.eof()) {
+                    leaderboard[leaderCount][0] = leaderboardRead.readLine(); // name
+                    leaderboard[leaderCount][1] = leaderboardRead.readLine(); // quiz number
+                    leaderboard[leaderCount][2] = leaderboardRead.readLine(); // score
                     leaderCount++;
                 }
 
